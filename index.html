@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bar Yellow Fever</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@900&display=swap" rel="stylesheet">
+    <style>
+        /* Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Courier New', Courier, monospace;
+        }
+
+        body {
+            background: #fffaf0;
+            min-height: 100vh;
+            overflow-x: hidden;
+            overflow-y: auto;
+        }
+
+        /* 新增主标题样式 */
+        .hero::before {
+            content: "YELLOW FEVER";
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-family: 'Cinzel Decorative', cursive;
+            font-size: 8vw;
+            color: rgba(255, 215, 0, 0.9);
+            text-shadow: 3px 3px 0 rgba(0, 0, 0, 0.7);
+            white-space: nowrap;
+            z-index: 100;
+            pointer-events: none;
+            mix-blend-mode: hard-light;
+            letter-spacing: 4px;
+            animation: textScale 1.2s cubic-bezier(0.23, 1, 0.32, 1) forwards;
+        }
+
+        @keyframes textScale {
+            from {
+                opacity: 0;
+                transform: translate(-50%, -40%);
+            }
+            to {
+                opacity: 1;
+                transform: translate(-50%, -50%);
+            }
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-image {
+            max-width: 90%;
+            max-height: 80vh;
+            object-fit: contain;
+            opacity: 0;
+            animation: fadeIn 1.5s ease-in forwards 0.3s;
+            position: relative;
+            z-index: 50;
+        }
+
+        /* Navigation */
+        .nav-toggle {
+            position: fixed;
+            top: 30px;
+            right: 30px;
+            cursor: pointer;
+            z-index: 1000;
+            font-size: 24px;
+            color: #3A2D28;
+            transition: transform 0.3s ease;
+        }
+
+        .nav-toggle:hover {
+            transform: rotate(90deg);
+        }
+
+        .dropdown-menu {
+            position: fixed;
+            top: 70px;
+            right: 30px;
+            background: rgba(255, 255, 255, 1);
+            border-radius: 0;
+            padding: 20px;
+            display: none;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            z-index: 1001;
+        }
+
+        .dropdown-menu.active {
+            display: block;
+            animation: slideDown 0.3s ease;
+        }
+
+        .nav-item {
+            list-style: none;
+            margin: 15px 0;
+            font-size: 12px;
+            color: #595959;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            white-space: nowrap;
+        }
+
+        .nav-item:hover {
+            transform: translateX(10px);
+            color: #000000;
+            font-weight: 800;
+        }
+
+        /* Recommended Section */
+        .recommended-section {
+            padding: 30px 20px;
+            background: #fffaf0;
+            position: relative;
+        }
+
+        .section-title {
+            font-size: 15px;
+            text-align: center;
+            color: #353536;
+            margin-bottom: 25px;
+            letter-spacing: 2px;
+        }
+
+        .recommended-grid {
+            display: flex;
+            overflow-x: auto;
+            scroll-snap-type: x mandatory;
+            -webkit-overflow-scrolling: touch;
+            scroll-behavior: smooth;
+            padding: 0 40px;
+            gap: 30px;
+        }
+
+        .recommended-grid::-webkit-scrollbar {
+            display: none;
+        }
+
+        .section-header {
+            max-width: 1000px;
+            margin: 0 auto 40px;
+            padding: 0 15px;
+        }
+
+        .product-card {
+            flex: 0 0 calc(100% - 40px);
+            scroll-snap-align: start;
+            border-radius: 0px;
+            padding: 3px;
+            background: rgb(222, 222, 223);
+            transition: transform 0.3s ease;
+            min-width: 280px;
+        }
+
+        .poetic-text {
+            font-size: 10px;
+            color: #30394a;
+            font-weight: 100;
+            position: relative;
+        }
+        
+        .scroll-hint {
+            color: #767575;
+            font-weight: 300;
+            text-align: center;
+            margin-top: 1rem;
+            position: relative;
+            display: none; /* 默认隐藏 */
+        }
+        
+        .scroll-hint::after {
+            content: "→";
+            display: inline-block;
+            margin-left: 8px;
+        }
+
+        .product-card h3 {
+            font-size: 12px;
+            color: #353536;
+            margin-bottom: 10px;
+        }
+
+        .product-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            margin-bottom: 15px;
+        }
+
+        .product-card p {
+            color: #323232;
+            line-height: 1.6;
+            font-size: 11px;
+        }
+
+        /* 单图板块样式 */
+        .single-image-section {
+            padding: 60px 20px;
+            background: #fffaf0;
+            text-align: center;
+        }
+
+        .full-width-image {
+            max-width: 250px;
+            width: 800%;
+            height: auto;
+            border: 1.5px solid #000;
+            margin: 20px auto;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        .image-caption {
+            font-size: 1rem;
+            color: #3A2D28;
+            margin-top: 10px;
+            letter-spacing: 1px;
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes slideDown {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Mobile Optimization */
+        @media (max-width: 768px) {
+            .recommended-grid {
+                padding: 20px 10px;
+            }
+            
+            .product-card {
+                flex: 0 0 250px;
+                margin: 0 10px;
+            }
+
+            .full-width-image {
+                width: 95%;
+            }
+        }
+        @media (max-width: 768px) {
+            .hero::before {
+                font-size: 12vw;
+                letter-spacing: 2px;
+            }
+
+            .hero-image {
+                max-width: 95%;
+                max-height: 70vh;
+            }
+            
+            .nav-toggle {
+                top: 20px;
+                right: 20px;
+            }
+            
+            .dropdown-menu {
+                right: 20px;
+                width: 160px;
+            }
+
+            .recommended-grid {
+                gap: 20px;
+            }
+
+            @media (max-width: 768px) {
+                .scroll-hint {
+                    display: block;
+                }
+                
+                .poetic-text {
+                    font-size: 1rem;
+                    padding-left: 1.2em;
+                }
+            }
+            
+            @keyframes arrowBounce {
+                0%, 100% { transform: translateX(0); }
+                50% { transform: translateX(5px); }
+            }
+        }
+    </style>
+
+</head>
+<body>
+    <!-- Navigation -->
+    <div class="nav-toggle">☰</div>
+    <ul class="dropdown-menu">
+        <li class="nav-item" onclick="window.location.href='/home'">Home</li>
+        <li class="nav-item" onclick="window.location.href='/cocktails'">Cocktails</li>
+        <li class="nav-item" onclick="window.location.href='/mocktails'">Mocktails</li>
+        <li class="nav-item" onclick="window.location.href='/findyourdrink'">Find your Drink</li>
+        <li class="nav-item" onclick="window.location.href='/aboutus'">About Us</li>
+    </ul>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <img src="hero_image.jpg" alt="Signature Cocktail" class="hero-image">
+    </section>
+
+    <section class="single-image-section">
+        <img src="poster_scoff_law.jpg" alt="poster1" class="full-width-image">
+        <p class="image-caption">逍遥法外</p>
+    </section>
+
+    <section class="single-image-section" style="background: #f5e6ca;">
+        <img src="poster_maple_jack.jpg" alt="poster2" class="full-width-image">
+        <p class="image-caption">楓糖傑克</p>
+    </section>
+
+
+    <!-- Recommended Section -->
+    <section class="recommended-section">
+        <div class="section-header">
+            <h2 class="section-title">原製原味</h2>
+            <div class="section-subtitle">
+                <h6 class="poetic-text">来去古今，經典與現代的高妙融合。清澈的迷宮，喝過的朋友都醉了</h6>
+                <h6 class="scroll-hint">滑動查看更多</h6>
+            </div>
+        </div>
+        
+        <div class="recommended-grid">
+            <div class="product-card">
+                <h3>奥修</h3>
+                <img src="osho.png" alt="osho">
+                <p>不详</p>
+            </div>
+            
+            <div class="product-card">
+                <h3>欧阳</h3>
+                <img src="ouyang.png" alt="ouyang">
+                <p>不详</p>
+            </div>
+            
+            <div class="product-card">
+                <h3>歪撕破</h3>
+                <img src="vesper.png" alt="vesper">
+                <p>不详</p>
+            </div>
+
+            <div class="product-card">
+                <h3>马丁内兹</h3>
+                <img src="martin.png" alt="martin">
+                <p>不详</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="single-image-section" style="background: #f5e6ca;">
+        <img src="poster_oriental.jpg" alt="poster3" class="full-width-image">
+        <p class="image-caption">東方奇遇 oh la la</p>
+    </section>
+
+    <script>
+        // Navigation Logic
+        const navToggle = document.querySelector('.nav-toggle');
+        const dropdownMenu = document.querySelector('.dropdown-menu');
+
+        // Toggle Menu
+        navToggle.addEventListener('click', (e) => {
+            e.stopPropagation();
+            dropdownMenu.classList.toggle('active');
+        });
+
+        // Close menu when clicking outside
+        document.addEventListener('click', (e) => {
+            if (dropdownMenu.classList.contains('active')) {
+                dropdownMenu.classList.remove('active');
+            }
+        });
+
+        // 轮播拖拽逻辑
+        let isDragging = false;
+        let startX = 0;
+        let scrollLeft = 0;
+        const grid = document.querySelector('.recommended-grid');
+
+        grid.addEventListener('mousedown', (e) => {
+            isDragging = true;
+            startX = e.pageX - grid.offsetLeft;
+            scrollLeft = grid.scrollLeft;
+        });
+
+        grid.addEventListener('mouseleave', () => isDragging = false);
+        grid.addEventListener('mouseup', () => isDragging = false);
+
+        grid.addEventListener('mousemove', (e) => {
+            if (!isDragging) return;
+            e.preventDefault();
+            const x = e.pageX - grid.offsetLeft;
+            const walk = (x - startX) * 2;
+            grid.scrollLeft = scrollLeft - walk;
+        });
+
+        // 触摸支持
+        grid.addEventListener('touchstart', (e) => {
+            isDragging = true;
+            startX = e.touches[0].pageX - grid.offsetLeft;
+            scrollLeft = grid.scrollLeft;
+        });
+
+        grid.addEventListener('touchend', () => isDragging = false);
+        grid.addEventListener('touchmove', (e) => {
+            if (!isDragging) return;
+            const x = e.touches[0].pageX - grid.offsetLeft;
+            const walk = (x - startX) * 2;
+            grid.scrollLeft = scrollLeft - walk;
+        });
+    </script>
+</body>
+</html>
