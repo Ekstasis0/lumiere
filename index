@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BAR YELLOW FEVER</title>
+    <style>
+        /* 字体设置 */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* 主导航样式 */
+        .main-nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            height: 60px;
+            background: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+            z-index: 1000;
+            border-bottom: 1px solid #eee;
+        }
+
+        /* 侧边导航 */
+        .side-nav {
+            position: fixed;
+            left: -300px;
+            top: 60px;
+            width: 300px;
+            height: calc(100vh - 60px);
+            background: white;
+            transition: 0.3s;
+            padding: 30px 0 0 40px;
+            z-index: 999;
+        }
+
+        .side-nav.active {
+            left: 0;
+        }
+
+        .side-nav a {
+            display: block;
+            margin: 15px 0;
+            color: #333;
+            text-decoration: none;
+            font-size: 18px;
+        }
+
+        /* 海报区域 */
+        .poster-container {
+            margin-top: 60px;
+        }
+
+        .poster {
+            height: 100vh;
+            position: relative;
+            background-size: cover;
+            background-position: center;
+        }
+
+        .poster-text {
+            position: absolute;
+            top: 20%;
+            left: 10%;
+            color: white;
+            font-size: 24px;
+            font-weight: bold;
+            max-width: 60%;
+            z-index: 1;
+        }
+
+        /* 底部样式 */
+        footer {
+            padding: 40px 20px;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .footer-column a {
+            display: block;
+            margin: 10px 0;
+            color: #333;
+            text-decoration: none;
+        }
+
+        .site-logo {
+            text-align: center;
+            padding: 50px 20px;
+            font-size: 48px;
+            font-weight: bold;
+            letter-spacing: 5px;
+        }
+
+        /* 图标样式 */
+        .nav-icons {
+            display: flex;
+            gap: 20px;
+        }
+
+        .nav-icon {
+            width: 24px;
+            height: 24px;
+            cursor: pointer;
+        }
+
+        /* PC端适配 */
+        @media (min-width: 768px) {
+            .side-nav {
+                width: 400px;
+                left: -400px;
+                padding-left: 60px;
+            }
+            
+            .poster-text {
+                font-size: 32px;
+                left: 15%;
+            }
+
+            .site-logo {
+                font-size: 64px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 主导航 -->
+    <nav class="main-nav">
+        <img src="javascript:void(0)" class="nav-icon" onclick="toggleNav()" alt="menu">
+        <div class="nav-icons">
+            <img src="javascript:void(0)" class="nav-icon" alt="search">
+            <img src="javascript:void(0)" class="nav-icon" alt="game">
+            <img src="javascript:void(0)" class="nav-icon" alt="about">
+        </div>
+    </nav>
+
+    <!-- 侧边导航 -->
+    <div class="side-nav">
+        <a href="www.abcde.uk">首页</a>
+        <a href="www.abcde.uk">原制原味</a>
+        <a href="www.abcde.uk">新老经典</a>
+        <a href="www.abcde.uk">群英荟萃</a>
+        <a href="www.abcde.uk">小孩饮品</a>
+        <a href="www.abcde.uk">关于我们</a>
+    </div>
+
+    <!-- 海报区域 -->
+    <div class="poster-container">
+        <div class="poster" style="background-image: url('poster_1.jpg')">
+            <a href="www.abcde.uk" class="poster-text">YELLOW FEVER</a>
+        </div>
+        <div class="poster" style="background-image: url('poster_2.jpg')">
+            <a href="www.abcde.uk" class="poster-text">The Original</a>
+        </div>
+        <div class="poster" style="background-image: url('poster_4.jpg')">
+            <a href="www.abcde.uk" class="poster-text">People</a>
+        </div>
+        <div class="poster" style="background-image: url('your-image-url4.jpg')">
+            <a href="www.abcde.uk" class="poster-text">海报标题4</a>
+        </div>
+    </div>
+
+    <!-- 底部 -->
+    <footer>
+        <div class="footer-column">
+            <a href="www.abcde.uk">关于我们</a>
+            <a href="www.abcde.uk">FAQ</a>
+            <a href="www.abcde.uk">Art Space</a>
+        </div>
+        <div class="footer-column">
+            <a href="www.abcde.uk">文字菜单</a>
+            <a href="www.abcde.uk">客调申请</a>
+        </div>
+    </footer>
+
+    <div class="site-logo">
+        YELLOW FEVER
+    </div>
+
+    <script>
+        function toggleNav() {
+            document.querySelector('.side-nav').classList.toggle('active');
+        }
+
+        // 点击外部关闭侧边栏
+        document.addEventListener('click', function(e) {
+            const sideNav = document.querySelector('.side-nav');
+            if (!e.target.closest('.side-nav') && !e.target.closest('.main-nav img')) {
+                sideNav.classList.remove('active');
+            }
+        });
+
+        // 动态设置海报高度
+        function setPosterHeight() {
+            document.querySelectorAll('.poster').forEach(poster => {
+                poster.style.height = window.innerHeight + 'px';
+            });
+        }
+        window.addEventListener('resize', setPosterHeight);
+        setPosterHeight();
+    </script>
+</body>
+</html>
