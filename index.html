@@ -64,6 +64,7 @@
             position: relative;
             background-size: cover;
             background-position: center;
+            cursor: pointer; /* 添加指针样式 */
         }
 
         .poster-text {
@@ -128,6 +129,7 @@
                 font-size: 64px;
             }
         }
+
     </style>
 </head>
 <body>
@@ -186,6 +188,15 @@
     </div>
 
     <script>
+              // 新增海报点击事件处理
+        document.querySelectorAll('.poster').forEach(poster => {
+            poster.addEventListener('click', function(e) {
+                if (e.target.closest('a')) return; // 如果点击的是链接则不处理
+                const link = this.querySelector('a').getAttribute('href');
+                window.location.href = link;
+            });
+        });
+
         function toggleNav() {
             document.querySelector('.side-nav').classList.toggle('active');
         }
@@ -199,6 +210,25 @@
         });
 
         // 动态设置海报高度
+        function setPosterHeight() {
+            document.querySelectorAll('.poster').forEach(poster => {
+                poster.style.height = window.innerHeight + 'px';
+            });
+        }
+        window.addEventListener('resize', setPosterHeight);
+        setPosterHeight();
+
+                function toggleNav() {
+            document.querySelector('.side-nav').classList.toggle('active');
+        }
+
+        document.addEventListener('click', function(e) {
+            const sideNav = document.querySelector('.side-nav');
+            if (!e.target.closest('.side-nav') && !e.target.closest('.main-nav img')) {
+                sideNav.classList.remove('active');
+            }
+        });
+
         function setPosterHeight() {
             document.querySelectorAll('.poster').forEach(poster => {
                 poster.style.height = window.innerHeight + 'px';
