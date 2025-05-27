@@ -64,6 +64,7 @@
             position: relative;
             background-size: cover;
             background-position: center;
+            cursor: pointer; /* 添加指针样式 */
         }
 
         .poster-text {
@@ -128,42 +129,44 @@
                 font-size: 64px;
             }
         }
+
     </style>
 </head>
 <body>
     <!-- 主导航 -->
     <nav class="main-nav">
-        <img src="menu.png" class="nav-icon" onclick="toggleNav()" alt="menu">
+        <img src="nav_menu.png" class="nav-icon" onclick="toggleNav()" alt="menu">
         <div class="nav-icons">
-            <img src="search.png" class="nav-icon" alt="search">
-            <img src="customized.png" class="nav-icon" alt="game">
-            <img src="profile.png" class="nav-icon" alt="about">
+            <img src="nav_search.png" class="nav-icon" alt="search">
+            <img src="nav_customized.png" class="nav-icon" alt="game">
+            <img src="nav_profile.png" class="nav-icon" alt="about">
         </div>
     </nav>
 
     <!-- 侧边导航 -->
     <div class="side-nav">
-        <a href="www.abcde.uk">首页</a>
-        <a href="www.abcde.uk">原制原味</a>
-        <a href="www.abcde.uk">新老经典</a>
-        <a href="www.abcde.uk">群英荟萃</a>
-        <a href="www.abcde.uk">小孩饮品</a>cu
-        <a href="www.abcde.uk">关于我们</a>
+        <a href="/">首页</a>
+        <a href="/original">原制原味</a>
+        <a href="/halloffame">群英荟萃</a>
+        <a href="/classics">新老经典</a>
+        <a href="/alcoholfree">自由酒精</a>
+        <a href="design.html" onclick="openSecondaryPage('design.html'); return false;">客调申请</a>
+        <a href="/aboutus">关于我们</a>
     </div>
 
     <!-- 海报区域 -->
     <div class="poster-container">
         <div class="poster" style="background-image: url('poster_1.jpg')">
-            <a href="www.abcde.uk" class="poster-text">YELLOW FEVER</a>
+            <a href="www.abcde.uk" class="poster-text">YELLOW FEVER<br>MUST DRINK</a>
         </div>
         <div class="poster" style="background-image: url('poster_2.jpg')">
-            <a href="www.abcde.uk" class="poster-text">The Original</a>
+            <a href="www.abcde.uk" class="poster-text">原制原味</a>
         </div>
         <div class="poster" style="background-image: url('poster_4.jpg')">
-            <a href="www.abcde.uk" class="poster-text">People</a>
+            <a href="www.abcde.uk" class="poster-text">群英荟萃</a>
         </div>
-        <div class="poster" style="background-image: url('your-image-url4.jpg')">
-            <a href="www.abcde.uk" class="poster-text">海报标题4</a>
+        <div class="poster" style="background-image: url('poster_5.jpg')">
+            <a href="www.abcde.uk" class="poster-text">新老经典</a>
         </div>
     </div>
 
@@ -185,6 +188,20 @@
     </div>
 
     <script>
+         
+         // 通用跳转函数
+         function openSecondaryPage(page) {
+            window.location.href = page; 
+        }
+
+             // 海报点击事件
+        document.querySelectorAll('.poster').forEach(poster => {
+            poster.addEventListener('click', function(e) {
+            const link = this.querySelector('a').getAttribute('href');
+            openSecondaryPage(link);
+        });
+    });
+
         function toggleNav() {
             document.querySelector('.side-nav').classList.toggle('active');
         }
@@ -198,6 +215,25 @@
         });
 
         // 动态设置海报高度
+        function setPosterHeight() {
+            document.querySelectorAll('.poster').forEach(poster => {
+                poster.style.height = window.innerHeight + 'px';
+            });
+        }
+        window.addEventListener('resize', setPosterHeight);
+        setPosterHeight();
+
+                function toggleNav() {
+            document.querySelector('.side-nav').classList.toggle('active');
+        }
+
+        document.addEventListener('click', function(e) {
+            const sideNav = document.querySelector('.side-nav');
+            if (!e.target.closest('.side-nav') && !e.target.closest('.main-nav img')) {
+                sideNav.classList.remove('active');
+            }
+        });
+
         function setPosterHeight() {
             document.querySelectorAll('.poster').forEach(poster => {
                 poster.style.height = window.innerHeight + 'px';

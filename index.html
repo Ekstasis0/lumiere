@@ -150,7 +150,7 @@
         <a href="/halloffame">群英荟萃</a>
         <a href="/classics">新老经典</a>
         <a href="/alcoholfree">自由酒精</a>
-        <a href="/design">客调申请</a>
+        <a href="design.html" onclick="openSecondaryPage('design.html'); return false;">客调申请</a>
         <a href="/aboutus">关于我们</a>
     </div>
 
@@ -188,14 +188,19 @@
     </div>
 
     <script>
-              // 新增海报点击事件处理
+         
+         // 通用跳转函数
+         function openSecondaryPage(page) {
+            window.location.href = page; 
+        }
+
+             // 海报点击事件
         document.querySelectorAll('.poster').forEach(poster => {
             poster.addEventListener('click', function(e) {
-                if (e.target.closest('a')) return; // 如果点击的是链接则不处理
-                const link = this.querySelector('a').getAttribute('href');
-                window.location.href = link;
-            });
+            const link = this.querySelector('a').getAttribute('href');
+            openSecondaryPage(link);
         });
+    });
 
         function toggleNav() {
             document.querySelector('.side-nav').classList.toggle('active');
