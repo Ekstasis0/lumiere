@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>原制原味 | The Original</title>
+  <style>
+    /* 主导航 */
+    .main-nav {
+        position: fixed;
+        top: 0;
+        width: 100%;
+        height: 60px;
+        background: white;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0 20px;
+        z-index: 1000;
+        border-bottom: 1px solid #eee;
+    }
+
+    .nav-icons {
+        display: flex;
+        gap: 20px;
+    }
+
+    .nav-icon {
+        width: 24px;
+        height: 24px;
+        cursor: pointer;
+    }
+
+    /* 侧边导航 */
+    .side-nav {
+        position: fixed;
+        left: -300px;
+        top: 60px;
+        width: 300px;
+        height: calc(100vh - 60px);
+        background: white;
+        transition: 0.3s;
+        padding: 30px 0 0 40px;
+        z-index: 999;
+    }
+
+    .side-nav.active {
+        left: 0;
+    }
+
+    .side-nav a {
+        display: block;
+        margin: 15px 0;
+        color: #333;
+        text-decoration: none;
+        font-size: 18px;
+    }
+
+    /* 饮品陈列 */
+    .content {
+        margin-top: 100px;
+        padding: 20px 40px;
+        font-family: 'Helvetica Neue', sans-serif;
+    }
+
+    .drink-grid {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 40px 20px;
+        justify-content: space-between;
+        max-width: 900px;
+        margin: 0 auto;
+    }
+
+    .drink-item {
+        width: calc(50% - 10px);
+    }
+
+    .drink-name {
+        font-weight: bold;
+        font-size: 16px;
+        margin-bottom: 5px;
+    }
+
+    .drink-ingredients {
+        font-size: 14px;
+        color: #444;
+        line-height: 1.5;
+    }
+
+    @media (max-width: 600px) {
+        .drink-item {
+            width: 100%;
+        }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- 主导航 -->
+  <nav class="main-nav">
+    <img src="nav_menu.png" class="nav-icon" onclick="toggleNav()" alt="menu" />
+    <div class="nav-icons">
+      <img src="nav_search.png" class="nav-icon" alt="search" />
+      <img src="nav_customized.png" class="nav-icon" alt="game" />
+      <img src="nav_profile.png" class="nav-icon" alt="about" />
+    </div>
+  </nav>
+
+  <!-- 侧边导航 -->
+  <div class="side-nav">
+    <a href="/">首页</a>
+    <a href="/origin">原制原味</a>
+    <a href="/halloffame">群英荟萃</a>
+    <a href="/classics">新老经典</a>
+    <a href="/freeform">自由酒精</a>
+    <a href="design.html" onclick="openSecondaryPage('design.html'); return false;">客调申请</a>
+    <a href="/about">关于我们</a>
+  </div>
+
+  <div class="content">
+    <div class="drink-grid">
+      <!-- 示例饮品条目，12个 -->
+      <div class="drink-item">
+        <div class="drink-name">奥修 / Osho</div>
+        <div class="drink-ingredients">伏特加、干味美思、莉蕾白、苦艾酒</div>
+      </div>
+      <div class="drink-item">
+        <div class="drink-name">早读 / Sol Levante</div>
+        <div class="drink-ingredients">威士忌、西柚、苹果、伯爵茶糖浆、黄柠</div>
+      </div>
+      <div class="drink-item">
+        <div class="drink-name">酣睡 / Sound Sleep</div>
+        <div class="drink-ingredients">威士忌、潘纳托尼面包、黄柠、蛋清</div>
+      </div>
+      <div class="drink-item">
+        <div class="drink-name">枣点润 / Ruuun</div>
+        <div class="drink-ingredients">干金酒、干雪莉、干味美思、红枣糖浆、糯米普洱、木苦精</div>
+      </div>
+      <div class="drink-item">
+        <div class="drink-name">草地打滚 / Roll-roll Meadow</div>
+        <div class="drink-ingredients">干金酒、苹果、罗勒、青柠、蜂蜜、啤酒</div>
+      </div>
+      <div class="drink-item">
+        <div class="drink-name">树屋 / Tree House</div>
+        <div class="drink-ingredients">干金酒、西柚/番茄、接骨木花利口酒、乳香酒</div>
+      </div>
+      <div class="drink-item">
+        <div class="drink-name">柠檬挞 / Coconut Lime Tart</div>
+        <div class="drink-ingredients">梅兹卡尔、椰子利口酒、椰奶、青柠、蛋清</div>
+      </div>
+      <div class="drink-item">
+        <div class="drink-name">女巫 / Witch</div>
+        <div class="drink-ingredients">梅兹卡尔、草莓、莳萝、荔枝、青柠</div>
+      </div>
+      <div class="drink-item">
+        <div class="drink-name">赤月水母 / Red Moon</div>
+        <div class="drink-ingredients">银龙舌兰、梅兹卡尔、莉蕾白、干味美思、樱花味美思、黄柠</div>
+      </div>
+      <div class="drink-item">
+        <div class="drink-name">那霸古町 / Naha Old Town</div>
+        <div class="drink-ingredients">白朗姆、无花果叶、甜酒酿、黑糖利口酒、澄清牛奶</div>
+      </div>
+      <div class="drink-item">
+        <div class="drink-name">松鼠陷阱 / Squirrel Trap</div>
+        <div class="drink-ingredients">陈年朗姆、榛子利口酒、枫糖、黄柠、黄芥末</div>
+      </div>
+      <div class="drink-item">
+        <div class="drink-name">野山坡 / Hillside</div>
+        <div class="drink-ingredients">麦烧酒、柚子、紫苏、茉莉花、龙舌兰、盐水、黄柠</div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+
+    // 通用跳转函数
+    function openSecondaryPage(page) {
+        window.location.href = page; 
+        }
+    function toggleNav() {
+      document.querySelector('.side-nav').classList.toggle('active');
+    }
+
+    document.addEventListener('click', function (e) {
+      const sideNav = document.querySelector('.side-nav');
+      if (!e.target.closest('.side-nav') && !e.target.closest('.main-nav img')) {
+        sideNav.classList.remove('active');
+      }
+    });
+  </script>
+</body>
+</html>

@@ -145,8 +145,7 @@
 
     <!-- 侧边导航 -->
     <div class="side-nav">
-        <a href="/">首页</a>
-        <a href="/original">原制原味</a>
+        <a href="original.html" onclick="openSecondaryPage('original.html'); return false;">原制原味</a>
         <a href="/halloffame">群英荟萃</a>
         <a href="/classics">新老经典</a>
         <a href="/alcoholfree">自由酒精</a>
@@ -165,7 +164,7 @@
         <div class="poster" style="background-image: url('poster_4.jpg')">
             <a href="www.abcde.uk" class="poster-text">群英荟萃</a>
         </div>
-        <div class="poster" style="background-image: url('poster_5.jpg')">
+        <div class="poster" style="background-image: url('poster_5.png')">
             <a href="www.abcde.uk" class="poster-text">新老经典</a>
         </div>
     </div>
@@ -194,7 +193,7 @@
             window.location.href = page; 
         }
 
-             // 海报点击事件
+        // 海报点击事件
         document.querySelectorAll('.poster').forEach(poster => {
             poster.addEventListener('click', function(e) {
             const link = this.querySelector('a').getAttribute('href');
