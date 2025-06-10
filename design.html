@@ -20,6 +20,32 @@
             border-bottom: 1px solid #eee;
         }
 
+         /* 新增标题区域 */
+         .title-section {
+            margin-top: 60px; /* 导航栏高度 */
+            padding: 20px 20px 15px;
+            text-align: center;
+            background: linear-gradient(to bottom, #f8f8f8, #ffffff);
+            border-bottom: 1px solid #f0f0f0;
+        }
+        
+        .title-section h1 {
+            font-size: 24px;
+            font-weight: 600;
+            color: #222;
+            margin-bottom: 8px;
+            letter-spacing: 1px;
+        }
+        
+        .title-section p {
+            font-size: 15px;
+            color: #666;
+            line-height: 1.5;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+
         /* 侧边导航 */
         .side-nav {
             position: fixed;
@@ -256,22 +282,23 @@
     <!-- 主导航 -->
     <nav class="main-nav">
         <img src="nav_menu.png" class="nav-icon" onclick="toggleNav()" alt="menu">
-        <div class="nav-icons">
-            <img src="nav_search.png" class="nav-icon" alt="search">
-            <img src="nav_customized.png" class="nav-icon" alt="game">
-            <img src="nav_profile.png" class="nav-icon" alt="about">
-        </div>
     </nav>
 
+      <!-- 新增标题区域 -->
+    <div class="title-section">
+        <h1>鸡尾酒定制</h1>
+        <p>自己琢磨</p>
+    </div>
+
+    <!-- 侧边导航 -->
     <!-- 侧边导航 -->
     <div class="side-nav">
-        <a href="www.abcde.uk">首页</a>
-        <a href="www.abcde.uk">原制原味</a>
-        <a href="www.abcde.uk">群英荟萃</a>
-        <a href="www.abcde.uk">新老经典</a>
-        <a href="www.abcde.uk">自由酒精</a>
-        <a href="www.abcde.uk">客调申请</a>
-        <a href="www.abcde.uk">关于我们</a>
+        <a href="original.html" onclick="openSecondaryPage('original.html'); return false;">原制原味</a>
+        <a href="classics.html" onclick="openSecondaryPage('classics.html'); return false;">新老经典</a>
+        <a href="feast.html" onclick="openSecondaryPage('feast.html'); return false;">群英荟萃</a>
+        <a href="/freeform">离开酒精</a>
+        <a href="design.html" onclick="openSecondaryPage('design.html'); return false;">客调申请</a>
+        <a href="/about">关于我们</a>
     </div>
 
     <div id="export-area">
